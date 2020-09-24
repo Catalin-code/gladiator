@@ -55,8 +55,68 @@ public abstract class Gladiator {
      * @return the full name
      */
     public String getFullName() {
-        // Todo
-        return name;
+        String gladiatorType = this.getClass().getSimpleName();
+        String fullName = gladiatorType + " " + name;
+        return fullName;
+    }
+
+    /**
+     * Increments the level of the gladiator by 1.
+     */
+
+    public void levelUp(){
+        this.level = level + 1;
+    }
+
+    /**
+     * Returns the level of the gladiator.
+     * @return the level
+     */
+
+    public int getLevel(){
+        return level;
+    }
+
+    /**
+     * Returns the current HP.
+     * @return the current HP
+     */
+
+    public double getCurrentHp(){
+        return baseHp * getHpMultiplier().getValue() * level;
+    }
+
+    /**
+     * Returns the current SP.
+     * @return the current SP
+     */
+
+    public double getCurrentSp(){
+        return baseSp * getSpMultiplier().getValue() * level;
+    }
+
+    /**
+     * Returns the current DEX.
+     * @return the current DEX
+     */
+
+    public double getCurrentDex(){
+        return baseDex * getDexMultiplier().getValue() * level;
+    }
+
+    /**
+     * Returns true if the gladiator's health is above 0
+     * and false if it's below 0.
+     * @return true or false.
+     */
+
+    public boolean currentHealth(){
+        double health = getCurrentHp();
+        if(health > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public enum Multiplier {
@@ -74,5 +134,6 @@ public abstract class Gladiator {
             return value;
         }
     }
+
 
 }

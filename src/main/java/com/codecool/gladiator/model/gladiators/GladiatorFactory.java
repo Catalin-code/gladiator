@@ -2,6 +2,7 @@ package com.codecool.gladiator.model.gladiators;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -11,9 +12,13 @@ public class GladiatorFactory {
 
     public GladiatorFactory(String fileOfNames) {
         try {
-            File file = new File(getClass().getClassLoader().getResource(fileOfNames).getFile());
+            File file = new File(getClass().getClassLoader().getResource(fileOfNames).toURI());
+            System.out.println(file.toPath());
+            System.out.println(new File(getClass().getClassLoader().getResource(fileOfNames).getFile()).toPath());
             names = Files.readAllLines(file.toPath());
-        } catch (IOException|NullPointerException e) {
+        }
+        catch (IOException | NullPointerException | URISyntaxException e) {
+//            System.out.println(Arrays.stream(e.getStackTrace()).forEach(System.out::println));
             System.out.println("Names file not found or corrupted!");
             System.exit(1);
         }
